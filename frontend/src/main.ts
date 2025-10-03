@@ -1,4 +1,4 @@
-import 'zone.js' ;
+import 'zone.js';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { App } from './app/app';
 import { provideRouter } from '@angular/router';
@@ -18,7 +18,7 @@ const oktaAuthClient = new OktaAuth(oktaConfig);
 
 bootstrapApplication(App, {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(), // ✅ Modern HttpClient provider
     provideRouter([
       { path: '', redirectTo: 'protected', pathMatch: 'full' },
       { path: 'protected', component: ProtectedComponent, canActivate: [OktaAuthGuard] },
@@ -26,6 +26,6 @@ bootstrapApplication(App, {
     ]),
     { provide: OKTA_AUTH, useValue: oktaAuthClient },
     { provide: OKTA_CONFIG, useValue: { oktaAuth: oktaAuthClient } },
-    OktaAuthStateService // ✅ manually added
+    OktaAuthStateService
   ]
 });
